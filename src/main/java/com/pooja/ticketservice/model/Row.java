@@ -65,8 +65,6 @@ public class Row {
 				if(seat.isAvailable()) {
 					temp.add(seat);
 					numberOfSeats--;
-				} else {
-					temp.add(seat);
 				}
 			}	
 		}

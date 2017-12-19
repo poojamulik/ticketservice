@@ -10,6 +10,28 @@ public class TestMain {
 		System.out.println(impl.numSeatsAvailable());
 		
 		impl.findAndHoldSeats(5, "b");
+		impl.printStage();
+		System.out.println("---------------------------");
+		
+		impl.findAndHoldSeats(4, "b");
+		impl.printStage();
+		System.out.println("---------------------------");
+		
+		impl.findAndHoldSeats(4, "b");
+		impl.printStage();
+		System.out.println("---------------------------");
+		
+		impl.findAndHoldSeats(4, "b");
+		impl.printStage();
+		System.out.println("---------------------------");
+		
+		impl.findAndHoldSeats(4, "b");
+		impl.printStage();
+		System.out.println("---------------------------");
+		
+		impl.findAndHoldSeats(3, "b");
+		impl.printStage();
+		System.out.println("---------------------------");
 		
 	}
 

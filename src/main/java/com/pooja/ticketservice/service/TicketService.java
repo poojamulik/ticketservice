@@ -33,4 +33,6 @@ public interface TicketService {
 	 */
 	String reserveSeats(int seatHoldId, String customerEmail);
 
+	void printStage();
+
 }

@@ -19,26 +19,9 @@ public class TicketServiceImpl implements TicketService {
 	public SeatHold findAndHoldSeats(int numSeats, String customerEmail) {
 		
 		try {
-			stage.findAndHoldSeats(5, "a");
-			stage.print();
-			stage.findAndHoldSeats(4, "a");
-			stage.print();
-			stage.findAndHoldSeats(3, "a");
-			stage.print();
-			stage.findAndHoldSeats(2, "a");
-			stage.print();
-			stage.findAndHoldSeats(1, "a");
-			stage.print();
+			stage.findAndHoldSeats(numSeats, customerEmail);
 			
-
-			stage.findAndHoldSeats(3, "a");
-			stage.print();
-			stage.findAndHoldSeats(4, "a");
-			stage.print();
-			stage.findAndHoldSeats(3, "a");
-			stage.print();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	
@@ -48,6 +31,10 @@ public class TicketServiceImpl implements TicketService {
 
 	public String reserveSeats(int seatHoldId, String customerEmail) {
 		return null;
+	}
+
+	public void printStage() {
+		stage.print();
 	}
 	
 }
