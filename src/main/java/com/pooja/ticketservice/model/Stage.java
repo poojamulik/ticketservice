@@ -1,7 +1,10 @@
 package com.pooja.ticketservice.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.pooja.ticketservice.service.SeatHold;
 
@@ -37,6 +40,7 @@ public class Stage {
 	
 
 	public void print() {
+		rowList.sort(new RowIdCompare());
 		for(int i = 0; i < rowList.size(); i++) {
 			for(int j = 0; j < rowList.get(i).getSeats().size(); j++) {
 				System.out.print((rowList.get(i).getSeats().get(j).isAvailable() == true ? 0 : 1) + "\t");
@@ -45,18 +49,50 @@ public class Stage {
 		}
 	}
 
-	public int findAndHoldSeats(int totalSeats, String customerEmail) {
-		
-		SeatHold seatHold;
-		
+	public SeatHold findAndHoldSeats(int totalSeats, String email) throws Exception {
+	    SeatHold sh = getPrivateSeats(totalSeats, email);
+	    if(sh == null) {
+	    	sh = getAvailableSeats(totalSeats, email);
+	    	if(sh == null) {
+	    		throw new Exception("Insufficient seats");
+	    	}
+	    }
+	    return sh;		
+	}
+	
+	private SeatHold getPrivateSeats(int totalSeats, String email) {
+		List<Seat> seats = new ArrayList<>();
 		for (int i = rowID - 1; i >= 0; i--) {
 			Row r = rowList.get(i);
-			List<Seat> seats = r.getAvailableSeat(totalSeats);
-			seatHold = new SeatHold(seats, customerEmail);
-			return seatHold.getSeatHoldID();
+			List<Seat> temp = r.getAvailableSeat(totalSeats);
+			if(temp.size() >= totalSeats) {
+				seats = temp;
+				break;
+			} 
 		}
-		return 0;
-		
+		return buildSeatHold(seats, email);
+	}
+	
+	private SeatHold getAvailableSeats(int totalSeats, String email) {
+		rowList.sort(new RowSeatSizeCompare());	
+		List<Seat> seats = new ArrayList<>();
+		for(Row row : rowList) {
+			List<Seat> s = row.getRemainingSeats();
+			seats.addAll(s);
+			totalSeats = totalSeats - s.size();
+			if(totalSeats == 0) {
+				break;
+			}
+		}
+		return buildSeatHold(seats, email);
+	}
+	
+	private SeatHold buildSeatHold(List<Seat>seats, String email) {
+		if(seats.size() > 0) {
+			return new SeatHold(seats, email);
+		} else {
+			return null;
+		}
 	}
 	
 	

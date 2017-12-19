@@ -3,9 +3,9 @@ package com.pooja.ticketservice.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Row {
+public class Row implements Comparable<Row>{
 	
-	private int rowID;
+	private Integer rowID;
 	
 	private int stageColumnSize;
 	
@@ -33,7 +33,7 @@ public class Row {
 		this.seats = seats;
 	}
 
-	public int getRowID() {
+	public Integer getRowID() {
 		return rowID;
 	}
 
@@ -49,7 +49,7 @@ public class Row {
 		this.stageColumnSize = stageColumnSize;
 	}
 	
-	public int getNumSeatsAvailable() {
+	public Integer getNumSeatsAvailable() {
 		int numSeatsAvailable = 0;
 		for(Seat seat: seats) {
 			if(seat.isAvailable()) numSeatsAvailable++;
@@ -58,17 +58,35 @@ public class Row {
 	}
 	
 	public List<Seat> getAvailableSeat(int numberOfSeats) {
-		List<Seat> temp = new ArrayList<>();
+		List<Seat> availableSeats = new ArrayList<>();
 		if(numberOfSeats > 0) {
 			for(int i = 0; i < seats.size(); i++) {
 				Seat seat = seats.get(i);
 				if(seat.isAvailable()) {
-					temp.add(seat);
+					availableSeats.add(seat);
 					numberOfSeats--;
 				}
+				if (numberOfSeats == 0) break;
 			}	
 		}
-		return temp;
+		return availableSeats;
+	}
+	
+	public List<Seat> getRemainingSeats() {
+		List<Seat> remainingSeats = new ArrayList<>();
+		for(int i = 0; i < seats.size(); i++) {
+			Seat seat = seats.get(i);
+			if(seat.isAvailable()) {
+				remainingSeats.add(seat);
+			}
+		}	
+		return remainingSeats;
+	}
+
+
+	@Override
+	public int compareTo(Row o) {
+		return this.getNumSeatsAvailable().compareTo(o.getNumSeatsAvailable());
 	}
 	
 	

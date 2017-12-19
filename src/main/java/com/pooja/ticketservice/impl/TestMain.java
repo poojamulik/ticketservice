@@ -13,11 +13,11 @@ public class TestMain {
 		impl.printStage();
 		System.out.println("---------------------------");
 		
-		impl.findAndHoldSeats(4, "b");
+		impl.findAndHoldSeats(2, "b");
 		impl.printStage();
 		System.out.println("---------------------------");
 		
-		impl.findAndHoldSeats(4, "b");
+		impl.findAndHoldSeats(5, "b");
 		impl.printStage();
 		System.out.println("---------------------------");
 		
