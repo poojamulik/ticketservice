@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.pooja.ticketservice.service.SeatHold;
+import com.pooja.ticketservice.service.SeatReserve;
+import com.pooja.ticketservice.service.ServiceUtil;
 
 
 public class Stage {
@@ -96,6 +98,9 @@ public class Stage {
 		}
 	}
 	
-	
-	
+	public String reserveSeats(int seatHoldId, String customerEmail) throws Exception {
+		SeatHold sh = ServiceUtil.getHold(seatHoldId, customerEmail);
+		SeatReserve sr = new SeatReserve(sh);
+		return sr.reserve();
+	}
 }

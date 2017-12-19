@@ -18,8 +18,9 @@ public interface TicketService {
 	 *            unique identifier for the customer
 	 * @return a SeatHold object identifying the specific seats and related
 	 *         information
+	 * @throws Exception 
 	 */
-	SeatHold findAndHoldSeats(int numSeats, String customerEmail);
+	SeatHold findAndHoldSeats(int numSeats, String customerEmail) throws Exception;
 
 	/**
 	 * Commit seats held for a specific customer
@@ -31,7 +32,7 @@ public interface TicketService {
 	 *            assigned
 	 * @return a reservation confirmation code
 	 */
-	String reserveSeats(int seatHoldId, String customerEmail);
+	String reserveSeats(int seatHoldId, String customerEmail) throws Exception;
 
 	void printStage();
 

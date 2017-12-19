@@ -7,8 +7,8 @@ public class ServiceUtil {
 	
 	private static List<SeatHold> holdList = new ArrayList<>();
 	private static List<SeatReserve> reserveList = new ArrayList<>();
-	private static int holdId = 0;
-	private static int reserveId = 0;
+	private static int holdId = 1;
+	private static int reserveId = 1;
 	
 	
 	public static int getHoldId() {

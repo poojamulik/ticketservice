@@ -13,10 +13,13 @@ public class Seat {
 	private Date holdTime;
 	
 	private String email;
+	
+	private double waitTime;
 
-	public Seat(int rowID, int colID) {
+	public Seat(int rowID, int colID, double waitTime) {
 		this.rowID = rowID;
 		this.colID = colID;
+		this.waitTime = waitTime;
 	}
 
 	public int getRowID() {
@@ -39,14 +42,14 @@ public class Seat {
 		boolean isAvail = true;
 		if(reservedTime != null) {
 			isAvail = false;
-		} else if(holdTime != null && getDateDiff(holdTime, new Date()) <= 5) {
+		} else if(holdTime != null && getDateDiff(holdTime, new Date()) <= this.waitTime) {
 			isAvail = false;
 		}
 		return isAvail;
 	}
 
 	private Long getDateDiff(Date oldDate, Date newDate) {
-		 return (newDate.getTime() - oldDate.getTime())/(1000*60);
+		 return (newDate.getTime() - oldDate.getTime())/(1000);
 	}
 	
 	public void hold() {

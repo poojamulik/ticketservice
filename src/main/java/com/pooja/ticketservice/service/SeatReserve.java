@@ -22,10 +22,19 @@ public class SeatReserve {
 	public SeatReserve(SeatHold seatHold) {
 		seatHold.getSeatsOnHold().forEach((s) -> s.reserve());
 		this.seatsReserved = seatHold.getSeatsOnHold();
-		this.seatReserveId = ServiceUtil.getReserveId();
 		this.seatHoldID = seatHold.getSeatHoldID();
 		this.customerEmail = seatHold.getCustomerEmail();
-		ServiceUtil.saveReserve(this);
+		
+	}
+	
+	public String reserve() {
+		try {
+			this.seatReserveId = ServiceUtil.getReserveId();
+			ServiceUtil.saveReserve(this);
+			return "SUCCESS Reserve Id - " + this.getSeatReserveId();
+		} catch(Exception e) {
+			return "FAILED";
+		}
 	}
 
 	public int getSeatHoldID() {

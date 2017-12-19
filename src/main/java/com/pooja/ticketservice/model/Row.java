@@ -21,7 +21,7 @@ public class Row implements Comparable<Row>{
 	private void initializeRow() {
 		seats = new ArrayList<>();
 		for (int i = 0; i < stageColumnSize; i++) {
-			seats.add(new Seat(rowID, i));
+			seats.add(new Seat(rowID, i, 5));
 		}
 	}
 

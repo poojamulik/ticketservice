@@ -16,18 +16,12 @@ public class TicketServiceImpl implements TicketService {
 		return stage.getNumSeatsAvailable();
 	}
 
-	public SeatHold findAndHoldSeats(int numSeats, String customerEmail) {
-		try {
-			return stage.findAndHoldSeats(numSeats, customerEmail);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
+	public SeatHold findAndHoldSeats(int numSeats, String customerEmail) throws Exception {
+		return stage.findAndHoldSeats(numSeats, customerEmail);
 	}
 
-	public String reserveSeats(int seatHoldId, String customerEmail) {
-		return null;
+	public String reserveSeats(int seatHoldId, String customerEmail) throws Exception {
+		return stage.reserveSeats(seatHoldId, customerEmail);
 	}
 
 	public void printStage() {

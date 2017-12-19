@@ -1,53 +1,62 @@
 package com.pooja.ticketservice.impl;
 
-import junit.framework.Assert;
-import junit.framework.TestCase;
+
+import org.junit.*;
+
+import static org.junit.Assert.*;
+
+import org.junit.runners.MethodSorters;
+import org.junit.FixMethodOrder;
 
 import com.pooja.ticketservice.service.SeatHold;
 import com.pooja.ticketservice.service.TicketService;
 
-public class TicketServiceTest extends TestCase {
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class TicketServiceTest {
 
-	TicketService service;
+	static TicketService service;
 	
-    public TicketServiceTest() {
-    	service = new TicketServiceImpl(5, 5);
-    }
+	@BeforeClass
+	public static void runOnceBeforeClass() {
+		 service = new TicketServiceImpl(5, 5);	
+	}
     
-    public void testSuccessGetNumberOfAvailableSeatsBeforeBooking() {
+    @Test
+    public void test1SuccessGetNumberOfAvailableSeatsBeforeBooking() {
     	assertEquals(25, service.numSeatsAvailable());
     }
 
-    public void testSuccessBook5Tickets()
+    @Test
+    public void test2SuccessHold5Tickets() throws Exception
     {
     	SeatHold seatHold = service.findAndHoldSeats(5, "pmulik2288@gmail.com");
     	Assert.assertNotNull(seatHold.getSeatHoldID());
     	assertEquals(20, service.numSeatsAvailable());
     }
     
-    public void testSuccessBook6Tickets() {
-    	testSuccessBook5Tickets();
+    @Test
+    public void test3SuccessHold6Tickets() throws Exception {
     	SeatHold seatHold = service.findAndHoldSeats(6, "pmulik2288@gmail.com");
     	Assert.assertNotNull(seatHold.getSeatHoldID());
     	assertEquals(14, service.numSeatsAvailable());
     }
     
-    public void testSuccessBook5PrivateTickets() {
-    	testSuccessBook6Tickets();
+    @Test
+    public void test4SuccessHold5PrivateTickets() throws Exception {
     	SeatHold seatHold = service.findAndHoldSeats(5, "pmulik2288@gmail.com");
     	Assert.assertNotNull(seatHold.getSeatHoldID());
     	assertEquals(9, service.numSeatsAvailable());
     }
     
-    public void testSuccessBook4PrivateTickets() {
-    	testSuccessBook5PrivateTickets();
+    @Test
+    public void test5SuccessHold4PrivateTickets() throws Exception {
     	SeatHold seatHold = service.findAndHoldSeats(4, "pmulik2288@gmail.com");
     	Assert.assertNotNull(seatHold.getSeatHoldID());
     	assertEquals(5, service.numSeatsAvailable());
     }
     
-    public void testExceptionBook8PrivateTickets() {
-    	testSuccessBook4PrivateTickets();
+    @Test
+    public void test6ExceptionHold8PrivateTickets() {
     	try {
     		service.findAndHoldSeats(8, "pmulik2288@gmail.com");
     	} catch (Exception e) {
@@ -55,9 +64,35 @@ public class TicketServiceTest extends TestCase {
     	}
     }
     
-    public void testSuccessGetNumberOfAvailableSeatsAfterBooking() {
-    	testSuccessBook4PrivateTickets();
+    @Test
+    public void test7SuccessGetNumberOfAvailableSeatsAfterBooking() {
     	assertEquals(5, service.numSeatsAvailable());
+    }
+    
+    @Test
+    public void test8SuccessReserve2Tickets() throws Exception {
+    	//service.printStage();
+    	SeatHold seatHold = service.findAndHoldSeats(2, "pmulik2288@gmail.com");
+    	//service.printStage();
+    	String message = service.reserveSeats(seatHold.getSeatHoldID(), "pmulik2288@gmail.com");
+    	assertEquals(3, service.numSeatsAvailable());
+    	System.out.println(message);
+    }
+   
+    @Test
+    public void test9SuccessGetNumberOfAvailableSeatsAfterBooking1() throws InterruptedException {
+    	Thread.sleep(6000);
+    	assertEquals(23, service.numSeatsAvailable());
+    }
+    
+    @Test
+    public void testEmptyStage() throws InterruptedException {
+    	try {
+	    	service = new TicketServiceImpl(0, 0);	
+	    	service.findAndHoldSeats(4, "pmulik2288@gmail.com");
+    	} catch(Exception e) {
+    		assert(true);
+    	}
     }
     
 }
