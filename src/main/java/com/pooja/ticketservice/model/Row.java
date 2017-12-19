@@ -72,12 +72,13 @@ public class Row implements Comparable<Row>{
 		return availableSeats;
 	}
 	
-	public List<Seat> getRemainingSeats() {
+	public List<Seat> getRemainingSeats(int totalSeats) {
 		List<Seat> remainingSeats = new ArrayList<>();
 		for(int i = 0; i < seats.size(); i++) {
 			Seat seat = seats.get(i);
-			if(seat.isAvailable()) {
+			if(seat.isAvailable() && totalSeats >0) {
 				remainingSeats.add(seat);
+				totalSeats--;
 			}
 		}	
 		return remainingSeats;

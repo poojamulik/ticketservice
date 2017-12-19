@@ -9,11 +9,11 @@ public class TestMain {
 		TicketService impl = new TicketServiceImpl(5, 5);
 		System.out.println(impl.numSeatsAvailable());
 		
-		impl.findAndHoldSeats(5, "b");
+		impl.findAndHoldSeats(6, "b");
 		impl.printStage();
 		System.out.println("---------------------------");
 		
-		impl.findAndHoldSeats(2, "b");
+		impl.findAndHoldSeats(4, "b");
 		impl.printStage();
 		System.out.println("---------------------------");
 		
@@ -33,6 +33,9 @@ public class TestMain {
 		impl.printStage();
 		System.out.println("---------------------------");
 		
+		impl.findAndHoldSeats(6, "b");
+		impl.printStage();
+		System.out.println("---------------------------");
 	}
 
 }

@@ -5,9 +5,9 @@ import com.pooja.ticketservice.service.SeatHold;
 import com.pooja.ticketservice.service.TicketService;
 
 public class TicketServiceImpl implements TicketService {
-	
+
 	private Stage stage;
-	
+
 	TicketServiceImpl(int stageRows, int stageColumns) {
 		stage = new Stage(stageRows, stageColumns);
 	}
@@ -17,15 +17,12 @@ public class TicketServiceImpl implements TicketService {
 	}
 
 	public SeatHold findAndHoldSeats(int numSeats, String customerEmail) {
-		
 		try {
-			stage.findAndHoldSeats(numSeats, customerEmail);
-			
+			return stage.findAndHoldSeats(numSeats, customerEmail);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	
-		
 		return null;
 	}
 
@@ -36,5 +33,5 @@ public class TicketServiceImpl implements TicketService {
 	public void printStage() {
 		stage.print();
 	}
-	
+
 }

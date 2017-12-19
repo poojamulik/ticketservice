@@ -1,10 +1,7 @@
 package com.pooja.ticketservice.model;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import com.pooja.ticketservice.service.SeatHold;
 
@@ -77,13 +74,17 @@ public class Stage {
 		rowList.sort(new RowSeatSizeCompare());	
 		List<Seat> seats = new ArrayList<>();
 		for(Row row : rowList) {
-			List<Seat> s = row.getRemainingSeats();
+			List<Seat> s = row.getRemainingSeats(totalSeats);
 			seats.addAll(s);
 			totalSeats = totalSeats - s.size();
 			if(totalSeats == 0) {
+				rowList.sort(new RowIdCompare());
 				break;
 			}
 		}
+		if(totalSeats > 0) {
+			seats = new ArrayList<>();
+		} 
 		return buildSeatHold(seats, email);
 	}
 	
